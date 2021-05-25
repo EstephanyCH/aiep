@@ -2,7 +2,7 @@
 
     function traerComunas(){
 
-        require_once 'parametrosBD.php';
+        include 'parametrosBD.php';
         
         try
         {

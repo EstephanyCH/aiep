@@ -12,7 +12,10 @@
 <body>                
     
         <?php 
-            include_once '../../controlador/controladorProducto.php'; 
+            require_once '../../controlador/controladorCliente.php';
+            require_once '../../controlador/controladorComuna.php';
+            require_once '../../controlador/controladorRegion.php';
+            require_once '../../controlador/controladorCiudad.php';
             evaluarParametrosPorId();
         ?>
 
@@ -62,48 +65,161 @@
     <?php    } ?>
 </div>
 
-    <div class="row">
-        <div class="col-md-8">
-            <h4 class="mb-5"><b><span class='glyphicon glyphicon-repeat'></span>&nbsp;Eliminar producto: </b><?php echo $_GET['nombreParametros'];?></h4>
-            <form action="../../controlador/controladorProducto.php" method="POST">
-                <div class="form-group mb-3">
-                    <label for="txtNombre">Nombre:</label>
-                    <input readonly="False" type="text" value='<?php echo $_GET['nombreParametros'];?>' readonly="true" class="form-control" name="nombre" id="txtNombre">
+<div class="row">
+                <div class="col-md-8">
+                    <h4 class="mb-3"><b><span class='glyphicon glyphicon-repeat'></span>&nbsp;Eliminar cliente</b>
+                    </h4>
+                    <form action="../../controlador/controladorCliente.php" method="POST">
+                        <div class="form-group mb-3">
+                            <label for="txtRut">Rut:</label>
+                            <input type="text" value='<?php echo $_GET['RutParametros'];?>' readonly="true"
+                                class="form-control" name="rut" id="txtRut">
 
-                    </input>
+                            </input>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="txtNombre">Nombre:</label>
+                            <input type="text" value='<?php echo $_GET['nombreParametros'];?>' class="form-control"
+                                name="nombre" id="txtNombre">
+
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="txtApellido1">Apellido materno:</label>
+                            <input type="text" value='<?php echo $_GET['apellido1Parametros'];?>' class="form-control"
+                                name="apellido1" id="txtApellido1">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="txtApellido2">Apellido paterno</label>
+                            <input type="text" value='<?php echo $_GET['apellido2Parametros'];?>' class="form-control"
+                                name="apellido2" id="txtApellido2">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="dpCursos">Region:</label>
+
+                            <?php 
+                              
+                            $listaRegiones = getTodosLasRegiones();
+
+                            echo " <select class='form-control' name='id_region'> ";
+                            foreach($listaRegiones as $region)
+                            {
+                                if($_GET['regionParametros'] != null)
+                                {                                   
+
+                                    if($_GET['regionParametros']->getId() == $region->getId())
+                                    {
+                                        echo "<option selected value='".$region->getId() ."'>". $region->getNombre()."</option>";
+                                    }
+                                    else
+                                    {
+                                        echo "<option value='".$region->getId() ."'>". $region->getNombre()."</option>";
+                                    }
+                                }
+                                else
+                                {
+                                    echo "<option value='".$region->getId() ."'>". $region->getNombre()."</option>";
+                                }
+                            }
+                            echo " </select> ";
+
+                        ?>
+
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="dpCursos">Ciudad:</label>
+
+                            <select class="form-control" name="id_ciudad" id="dpCursos">
+                                <?php 
+                              
+                            $listaCursos = getTodosLasCiudades();
+
+                            foreach($listaCursos as $curso)
+                            {
+                                if($_GET['ciudadParametros'] != null)
+                                {
+                                    if($_GET['ciudadParametros']->getId() == $curso->getId())
+                                    {
+                                        echo "<option selected value='".$curso->getId() ."'>". $curso->getNombre()."</option>";
+                                    }
+                                    else
+                                    {
+                                        echo "<option value='".$curso->getId() ."'>". $curso->getNombre()."</option>";
+                                    }
+                                }
+                                else
+                                {
+                                    echo "<option value='".$curso->getId() ."'>". $curso->getNombre()."</option>";
+                                }
+                            }
+
+                        ?>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="dpCursos">Comuna:</label>
+
+                            <select class="form-control" name="id_comuna" id="dpCursos">
+                                <?php 
+                              
+                            $listaCursos = getTodosLasComunas();
+
+                            foreach($listaCursos as $curso)
+                            {
+                                if($_GET['comunaParametros'] != null)
+                                {
+                                    if($_GET['comunaParametros']->getId() == $curso->getId())
+                                    {
+                                        echo "<option selected value='".$curso->getId() ."'>". $curso->getNombre()."</option>";
+                                    }
+                                    else
+                                    {
+                                        echo "<option value='".$curso->getId() ."'>". $curso->getNombre()."</option>";
+                                    }
+                                }
+                                else
+                                {
+                                    echo "<option value='".$curso->getId() ."'>". $curso->getNombre()."</option>";
+                                }
+                            }
+
+                        ?>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="txtDireccion">Direccion</label>
+                            <input type="text" value='<?php echo $_GET['direccionParametros'];?>' class="form-control"
+                                name="direccion" id="txtDireccion">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="txtEmail">Email</label>
+                            <input type="text" value='<?php echo $_GET['emailParametros'];?>' class="form-control"
+                                name="email" id="txtEmail">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="txtTelefono">Telefono</label>
+                            <input type="text" value='<?php echo $_GET['telefonoParametros'];?>' class="form-control"
+                                name="telefono" id="txtTelefono">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="txtGiro">Giro</label>
+                            <input type="text" value='<?php echo $_GET['giroParametros'];?>' class="form-control"
+                                name="giro" id="txtGiro">
+                        </div>
+                        <button id="btnAccion" type="submit" name="eliminar"
+                            class="btn btn-primary">Eliminar</button>
+                        <a href="administrar.php"><button type="button" class="btn btn-secondary">Cancelar</button></a>
                 </div>
 
-                <div class="form-group mb-3">
-                    <label for="txtCodigo">Código:</label>
-                    <input readonly="False" type="text" value='<?php echo $_GET['codigoParametros'];?>' class="form-control" name="codigo" id="txtCodigo">
-                    
-                </div>
+                </form>
 
-
-                <div class="form-group mb-3">
-                    <label for="txtDescripción">Descripcion:</label>
-                    <input readonly="False" type="text" value='<?php echo $_GET['descripcionParametros'];?>' class="form-control" name="descripcion" id="txtDescripción">
-                </div>
-
-                <div class="form-group mb-3">
-                    <label for="txtUnidadMedida">Unidad de medida:</label>
-                    <input readonly="False" type="text" value='<?php echo $_GET['unidad_medidaParametros'];?>' class="form-control" name="unidadMedida" id="txtUnidadMedida">
-                </div>
-
-                <div class="form-group mb-3">
-                    <label for="txtPrecioUnitario">Precio unitario:</label>
-                    <input readonly="False" type="text" value='<?php echo $_GET['precioUnitarioParametros'];?>' class="form-control" name="precioUnitario" id="txtPrecioUnitario">
-                </div>
-                <div class="mt-5">
-                <button id="btnAccion" type="submit" name="eliminar" class="btn btn-primary">Eliminar</button>
-                <a href="administrar.php"><button type="button" class="btn btn-secondary">Cancelar</button></a>
-                </div>
-               
-            </form>
-
-        </div>
-        </div> 
-        </div>
+            </div>
     
     </body>
 </html>

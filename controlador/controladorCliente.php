@@ -21,43 +21,51 @@
         require_once '../entidades/cliente.php';
         require_once '../persistencia/daoCliente.php';
 
-        $rut = $_POST['RutParametros'];
-        $nombre = $_POST['nombreParametros'];
-        $apellido1 = $_POST['apellido1Parametros'];
-        $direccion = $_POST['direccionParametros'];
-        $email = $_POST['emailParametros'];
-        $telefono = $_POST['telefonoParametros'];
-        $giro = $_POST['giroParametros'];
+        $rut= $_POST['rut'];
+        $nombre = $_POST['nombre'];
+        $apellido1 = $_POST['apellido1'];
+        $apellido2 = $_POST['apellido2'];
+        $id_ciudad = $_POST['id_comuna'];
+        $id_region = $_POST['id_ciudad'];
+        $id_comuna =  $_POST['id_region'];
+        $direccion = $_POST['direccion'];
+        $email = $_POST['email'];
+        $telefono = $_POST['telefono'];
+        $giro = $_POST['giro'];
 
-        $nuevoCliente = new Cliente($rut, $nombre, $apellido1,  $apellido2, 1, 2, 3, $direccion, $email, $telefono, $giro);
-
-        header("Location: ../presentacion/producto/actualizar.php?msj=" . actualizarProducto($nuevoProducto) . " [Producto: " . $nuevoProducto->getNombre() . "]");
+        $nuevoCliente = new Cliente($rut, $nombre, $apellido1,  $apellido2, $id_ciudad, $id_comuna, $id_region,$direccion, $email, $telefono, $giro);
         
-        die();    
+        header("Location: ../presentacion/clientes/actualizar.php?msj=" . actualizarCliente($nuevoCliente) . " [Cliente: " . $nuevoCliente->getRut() . "]");
+        die();
     }
     elseif(isset($_POST['eliminar']))
     { 
         require_once '../entidades/cliente.php';
         require_once '../persistencia/daoCliente.php';
 
+        $rut= $_POST['rut'];
         $nombre = $_POST['nombre'];
-        $codigo = $_POST['codigo'];
-        $descripcion = $_POST['descripcion'];
-        $unidadMedida = $_POST['unidadMedida'];
-        $precioUnitario = $_POST['precioUnitario'];
-        $nuevoProducto = new Producto($nombre, $codigo, $descripcion,  $unidadMedida, $precioUnitario);
+        $apellido1 = $_POST['apellido1'];
+        $apellido2 = $_POST['apellido2'];
+        $id_ciudad = $_POST['id_comuna'];
+        $id_region = $_POST['id_ciudad'];
+        $id_comuna =  $_POST['id_region'];
+        $direccion = $_POST['direccion'];
+        $email = $_POST['email'];
+        $telefono = $_POST['telefono'];
+        $giro = $_POST['giro'];
+
+        $nuevoCliente = new Cliente($rut, $nombre, $apellido1,  $apellido2, $id_ciudad, $id_comuna, $id_region,$direccion, $email, $telefono, $giro);
        
-        header("Location: ../presentacion/producto/eliminar.php?msj=" . eliminar($codigo) . " [Producto: " . $nuevoProducto->getNombre() . "]");
+        header("Location: ../presentacion/clientes/eliminar.php?msj=" . eliminarCliente($rut) . " [Cliente: " . $nuevoCliente->getNombre() . "]");
         
         die();    
     }
 
 
     function getClientes(){
-
         require_once '../../entidades/cliente.php';
         require_once '../../persistencia/daoCliente.php';
-
         $lista = consultarClientes();
         
         return $lista;

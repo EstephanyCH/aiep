@@ -1,9 +1,11 @@
 <?php
 
     function getTodosLasRegiones(){
+        echo'region';
         include_once '../../persistencia/daoRegion.php';
         include_once '../../entidades/region.php';
-        $lista = traerComunas();
+
+        $lista = traerRegiones();
 
         return $lista;
     }

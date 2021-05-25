@@ -37,23 +37,34 @@
 
         require_once 'parametrosBD.php';
 
-
         try{
             $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos", $usuario,$password);
 
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $queryUpdate = $conn->prepare("UPDATE producto SET nombre=:nombre, descripcion=:descripcion, unidad_medida=:unidad_medida,
-            precio_unitario=:precio_unitario WHERE codigo=:codigo");
+            $queryUpdate = $conn->prepare("UPDATE cliente SET
+            nombre=:nombre,
+            apellido1=:apellido1,
+            apellido2=:apellido2,
+            id_comuna=:id_comuna,
+            direccion=:direccion,
+            email=:email,
+            telefono=:telefono,
+            giro=:giro
+            WHERE rut=:rut");
 
-            $queryUpdate->bindValue("codigo", $nuevoProducto->getCodigo());
-            $queryUpdate->bindValue("nombre", $nuevoProducto->getNombre());
-            $queryUpdate->bindValue("descripcion", $nuevoProducto->getDescripcion());
-            $queryUpdate->bindValue("unidad_medida", $nuevoProducto->getUnidadMedida());
-            $queryUpdate->bindValue("precio_unitario", $nuevoProducto->getPrecioUnitario());
+            $queryUpdate->bindValue("nombre", $cliente->getNombre());
+            $queryUpdate->bindValue("apellido1", $cliente->getApellido1());
+            $queryUpdate->bindValue("apellido2", $cliente->getApellido2());
+            $queryUpdate->bindValue("id_comuna", $cliente->getComuna());
+            $queryUpdate->bindValue("direccion", $cliente->getDireccion());
+            $queryUpdate->bindValue("email", $cliente->getEmail());
+            $queryUpdate->bindValue("telefono", $cliente->getTelefono());
+            $queryUpdate->bindValue("giro", $cliente->getGiro());
+            $queryUpdate->bindValue("rut", $cliente->getRut());
 
             $resultado = $queryUpdate->execute();
-            
+
             if($resultado)
             {
                 return "ok";
@@ -71,7 +82,7 @@
 
     }
 
-    function eliminarCliente($codigo){
+    function eliminarCliente($rut){
 
         require_once 'parametrosBD.php';
 
@@ -80,9 +91,9 @@
 
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
-            $queryDelete = $conn->prepare("UPDATE producto set estado = 0 where codigo=:codigo");
+            $queryDelete = $conn->prepare("UPDATE cliente set estado = 0 where rut=:rut");
 
-            $queryDelete->bindValue("codigo", $codigo);
+            $queryDelete->bindValue("rut", $rut);
 
             $resultado = $queryDelete->execute();
             
@@ -118,7 +129,7 @@
 
             $listaDeClientes=[];
 
-            $querySelect = $conexion->query("SELECT * FROM cliente");
+            $querySelect = $conexion->query("SELECT * FROM cliente where estado=1");
 
             foreach($querySelect->fetchAll() as $arregloCliente)
             {

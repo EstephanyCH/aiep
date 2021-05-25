@@ -11,7 +11,7 @@
         }
 
         function getId(){
-            return $this->id_comuna;
+            return $this->id_region;
         }
 
         function getNombre(){

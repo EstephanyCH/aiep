@@ -11,9 +11,10 @@
         private $telefono;
         private $giro;
         private $tipo;
+        private $nombreUsuario;
+        private $password;
 
-
-        function __construct($rut, $nombre, $apellido1, $apellido2, $id_comuna,$direccion,$email, $telefono, $giro, $tipo )
+        function __construct($rut, $nombre, $apellido1, $apellido2, $id_comuna,$direccion,$email, $telefono, $giro, $tipo, $nombreUsuario, $password )
         {
             $this->rut=$rut;
             $this->nombre=$nombre;
@@ -25,6 +26,9 @@
             $this->telefono=$telefono;
             $this->giro=$giro;
             $this->tipo=$tipo;
+            $this->nombreUsuario=$nombreUsuario;
+            $this->password=$password;
+
         }
 
         function getRut(){
@@ -62,6 +66,9 @@
             return $this->giro;
         }
 
+        function getNombreUsuario(){
+            return $this->nombreUsuario;
+        }
         function getTipo(){
             return $this->tipo;
         }

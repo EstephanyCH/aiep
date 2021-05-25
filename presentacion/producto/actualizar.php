@@ -92,6 +92,7 @@
                     <input type="text" value='<?php echo $_GET['precioUnitarioParametros'];?>' class="form-control" name="precioUnitario" id="txtPrecioUnitario">
                 </div>
                 
+
                 <button id="btnAccion" type="submit" name="actualizar" class="btn btn-primary">Modificar</button>
                 <a href="administrar.php"><button type="button" class="btn btn-secondary">Cancelar</button></a>
             </form>

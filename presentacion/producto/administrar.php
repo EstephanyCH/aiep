@@ -38,22 +38,44 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
+                <?php        
+                        session_start();
+                ?>
+                <?php if($_SESSION['tipoUsuario'] == 1) {  ?>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="administrar.php">Productos</a>
                     </li>
+                <?php } ?>
+                <?php if($_SESSION['tipoUsuario'] == 1) {  ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../empresa/administrar.php">Empresa</a>
                     </li>
+                <?php } ?>
+                <?php if($_SESSION['tipoUsuario'] == 1) {  ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../clientes/administrar.php">Clientes</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../facturas/administrar.php">Facturas</a>
-                    </li>
+                <?php } ?>
+                <?php if($_SESSION['tipoUsuario'] == 1) {  ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="../facturas/administrar.php">Facturas</a>
+                </li>
+                <?php } ?>
+                <?php if($_SESSION['tipoUsuario'] == 1 || $_SESSION['tipoUsuario'] == 2) {  ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../libro_ventas/administrar.php">Libro de ventas</a>
                     </li>
+                <?php } ?>
                 </ul>
+                    <?php        
+                        if(isset($_SESSION['nombre']))
+                        {
+                             echo "Usuario:" .$_SESSION['nombre']. "...";
+                        } else {
+                            echo "sesión no creada";
+                        }
+                        
+                        ?>      
             </div>
         </div>
     </nav>

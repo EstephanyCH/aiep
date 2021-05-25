@@ -2,7 +2,7 @@
 
     function traerRegiones(){
 
-        require_once 'parametrosBD.php';
+        include 'parametrosBD.php';
         
         try
         {
@@ -12,7 +12,7 @@
 
             $lista=[];
 
-            $querySelect = $conexion->query("SELECT * FROM comuna");
+            $querySelect = $conexion->query("SELECT * FROM region");
 
             foreach($querySelect->fetchAll() as $arregloItem)
             {
