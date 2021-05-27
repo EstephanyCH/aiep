@@ -35,38 +35,55 @@
         </div>
         <div class="row">
             <div class="col-md-8">
-                <h4 class="mb-5"><b><span class='glyphicon glyphicon-plus'></span>&nbsp;Ingresar producto</b></h4>
-                <form action="/proyectoFacturas/controlador/controladorProducto.php" method="POST">
+                <h4 class="mb-5"><b><span class='glyphicon glyphicon-plus'></span>&nbsp;Ingresar factura</b></h4>
+                <form action="/proyectoFacturas/controlador/controladorFactura.php" method="POST">
 
                     <div class="form-group  mb-3">
-                        <label for="txtRut">Código:</label>
-                        <input type="text" class="form-control" name="codigo" id="txtCodigo"
+                        <label for="txtRut">Rut empresa:</label>
+                        <input type="text" class="form-control" name="rutEmpresa" value="24327088" readonly="true"
                             placeholder="Ingresa el código del producto">
                     </div>
 
                     <div class="form-group  mb-3">
-                        <label for="txtRut">Nombre:</label>
-                        <input type="text" class="form-control" name="nombre" id="txtNombre"
-                            placeholder="Ingresa el nombre del producto">
-                    </div>
-
-                    <div class="form-group  mb-3">
-                        <label for="txtNombre1">Descripcion:</label>
-                        <input type="text" class="form-control" name="descripcion" id="txtDescripcion"
+                        <label for="txtNombre1">Observaciones:</label>
+                        <input type="text" class="form-control" name="observaciones" id="txtDescripcion"
                             placeholder="Ingresa la descripción del producto">
                     </div>
 
-                    <div class="form-group  mb-3">
-                        <label for="txtNombre2">Unidad de medida:</label>
-                        <input type="text" class="form-control" name="unidadMedida" id="txtUnidadMedida"
-                            placeholder="Ingresa la unidad de medida del producto">
+                    <div class="form-group mb-3">
+                        <label for="dpCursos">Tipo:</label>
+                        <select class="form-control" name="idTipo">
+                            <option value="1">Factura</option>
+                        </select>
                     </div>
 
                     <div class="form-group  mb-3">
-                        <label for="txtApellido1">Precio unitario:</label>
-                        <input type="text" class="form-control" name="precioUnitario" id="txtPrecio"
-                            placeholder="Ingresa el precio unitario del producto">
+                        <label for="txtNombre2">Valor del iva:</label>
+                        <input type="text" class="form-control" name="iva" id="txtUnidadMedida"
+                            placeholder="Ingresa la unidad de medida del producto">
                     </div>
+
+                    <div class="form-group mb-3">
+                        <label for="dpCursos">Cliente:</label>
+
+                        <select class="form-control" name="cliente" id="dpCursos">
+                            <?php
+
+                            require_once '../../controlador/controladorCliente.php';
+                            $listaClientes = getClientes();
+
+                            if(count($listaClientes) > 0){
+                                foreach($listaClientes as $cliente)
+                                {
+                                    echo "<option value='".$cliente->getRut() ."'>". $cliente->getNombre()."</option>";
+                                }
+                            }
+                            ?>
+                        </select>
+
+                    </div>
+
+                    <p>Posterior al ingreso puede agregar los productos asociados</p>
                     <div class="mt-3">
                         <button id="btnAccion" type="submit" name="registrar" class="btn btn-primary">Guardar</button>
                         <a href="administrar.php"><button type="button" class="btn btn-secondary">Cancelar</button></a>

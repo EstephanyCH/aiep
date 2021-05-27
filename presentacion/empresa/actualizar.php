@@ -15,10 +15,10 @@
 
     <body>
         <?php 
-            include_once '../../controlador/controladorProducto.php'; 
-            evaluarParametrosPorId();
+            require_once '../../controlador/controladorEmpresa.php';
+            evaluarParametrosPorId();  
         ?>
-        
+
         <?php include("../header/header.php");?>
 
         <div class="container content pt-5">
@@ -27,7 +27,7 @@
                 <?php if(isset($_GET['msj']) && strpos($_GET['msj'],"ok") !== false) {  ?>
 
                 <div class='alert alert-success alert-dismissible'>
-                    <strong>¡Operación Realizada!</strong> <?php echo $_GET['msj'] ?> Registrado Correctamente!
+                    <strong>¡Operación Realizada!</strong> <?php echo $_GET['msj'] ?> Actualizado Correctamente!
                 </div>
 
                 <?php } elseif(isset($_GET['msj']) && strpos($_GET['msj'],"err") !== false) { ?>
@@ -39,16 +39,15 @@
                 <?php    } ?>
             </div>
 
-
             <div class="row">
                 <div class="col-md-8">
-                    <h4 class="mb-3"><b><span class='glyphicon glyphicon-repeat'></span>&nbsp;Actualizar producto</b>
+                    <h4 class="mb-3"><b><span class='glyphicon glyphicon-repeat'></span>&nbsp;Actualizar información de la empresa</b>
                     </h4>
-                    <form action="../../controlador/controladorProducto.php" method="POST">
+                    <form action="../../controlador/controladorEmpresa.php" method="POST">
                         <div class="form-group mb-3">
-                            <label for="txtCodigo">Codigo:</label>
-                            <input type="text" value='<?php echo $_GET['codigoParametros'];?>' readonly="true"
-                                class="form-control" name="codigo" id="txtCodigo">
+                            <label for="txtRut">Rut Empresa:</label>
+                            <input type="text" value='<?php echo $_GET['RutParametros'];?>' readonly="true"
+                                class="form-control" name="rut" id="txtRut">
 
                             </input>
                         </div>
@@ -61,31 +60,26 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="txtDescripción">Descripción:</label>
-                            <input type="text" value='<?php echo $_GET['descripcionParametros'];?>' class="form-control"
-                                name="descripcion" id="txtDescripción">
+                            <label for="txtRazonSocial">Razon social:</label>
+                            <input type="text" value='<?php echo $_GET['razonSocialParametros'];?>' class="form-control"
+                                name="razonSocial" id="txtRazonSocial">
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="txtUnidadMedida">Unidad de medida</label>
-                            <input type="text" value='<?php echo $_GET['unidad_medidaParametros'];?>'
-                                class="form-control" name="unidadMedida" id="txtUnidadMedida">
+                            <label for="txtGiro">Giro</label>
+                            <input type="text" value='<?php echo $_GET['giroParametros'];?>' class="form-control"
+                                name="giro" id="txtGiro">
                         </div>
-
-                        <div class="form-group mb-3">
-                            <label for="txtApellido2">Precio unitario</label>
-                            <input type="text" value='<?php echo $_GET['precioUnitarioParametros'];?>'
-                                class="form-control" name="precioUnitario" id="txtPrecioUnitario">
-                        </div>
-
 
                         <button id="btnAccion" type="submit" name="actualizar"
-                            class="btn btn-primary">Modificar</button>
+                            class="btn btn-primary">Actualizar</button>
                         <a href="administrar.php"><button type="button" class="btn btn-secondary">Cancelar</button></a>
-                    </form>
-
                 </div>
+
+                </form>
+
             </div>
+        </div>
         </div>
     </body>
 

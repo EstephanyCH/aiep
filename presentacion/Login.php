@@ -19,26 +19,30 @@
 
     <div class="container content pt-5">
         <div class="row d-flex justify-content-center">
-            <div class="col-md-5 mt-5">
+            <div class="col-md-7 mt-5 ">
+                <div class="card p-5">
+                    <div class="card-body">
+                    <h3 class="mb-3">REPI TELRAMO ELECTRONICS LTDA</h1>
+                    <form action="Login.php" class="mt-5">
 
-            <h3 class="mb-3">REPI TELRAMO ELECTRONICS LTDA</h1>
-                <form action="Login.php" class="mt-5">
+                        <div class="mb-3">
+                            <label for="txtNombreUsuario" class="form-label">Ingrese usuario</label>
+                            <input type="text" class="form-control" name="nombreUsuario" id="txtNombreUsuario">
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtPassword" class="form-label">Ingrese password</label>
+                            <input type="text" class="form-control" name="password" id="txtPassword">
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="txtNombreUsuario" class="form-label">Ingrese usuario</label>
-                        <input type="text" class="form-control" name="nombreUsuario" id="txtNombreUsuario">
+                        <div class="mb-3 d-flex justify-content-center">
+                            <button type="submit" name="login"
+                                class="btn btn-warning btn-lg btn-block mt-3 ">Login</button>
+                        </div>
+
+                    </form>
                     </div>
-                    <div class="mb-3">
-                        <label for="txtPassword" class="form-label">Ingrese password</label>
-                        <input type="text" class="form-control"  name="password" id="txtPassword">
-                    </div>
-
-                    <div class="mb-3 d-flex justify-content-center">
-                        <button type="submit" name="login" class="btn btn-warning btn-lg btn-block mt-3 ">Login</button>
-                    </div>
-
-                </form>
-                </div>
+                </div>  
+            </div>
         </div>
     </div>
 

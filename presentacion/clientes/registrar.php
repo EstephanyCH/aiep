@@ -14,24 +14,24 @@
     </head>
 
     <body>
-
         <?php 
             require_once '../../controlador/controladorCliente.php';
             require_once '../../controlador/controladorComuna.php';
             require_once '../../controlador/controladorRegion.php';
             require_once '../../controlador/controladorCiudad.php';
-            evaluarParametrosPorId();
+
+            evaluarParametrosPorId();  
         ?>
-        
         <?php include("../header/header.php");?>
 
-        <div class="container pt-5">
+
+        <div class="container content pt-5">
 
             <div class="row">
                 <?php if(isset($_GET['msj']) && strpos($_GET['msj'],"ok") !== false) {  ?>
 
                 <div class='alert alert-success alert-dismissible'>
-                    <strong>¡Operación Realizada!</strong> <?php echo $_GET['msj'] ?> Registrado Correctamente!
+                    <strong>¡Operación Realizada!</strong> <?php echo $_GET['msj'] ?> Actualizado Correctamente!
                 </div>
 
                 <?php } elseif(isset($_GET['msj']) && strpos($_GET['msj'],"err") !== false) { ?>
@@ -45,34 +45,30 @@
 
             <div class="row">
                 <div class="col-md-8">
-                    <h4 class="mb-3"><b><span class='glyphicon glyphicon-repeat'></span>&nbsp;Eliminar cliente</b>
+                    <h4 class="mb-3"><b><span class='glyphicon glyphicon-repeat'></span>&nbsp;Registrar cliente</b>
                     </h4>
                     <form action="../../controlador/controladorCliente.php" method="POST">
                         <div class="form-group mb-3">
                             <label for="txtRut">Rut:</label>
-                            <input type="text" value='<?php echo $_GET['RutParametros'];?>' readonly="true"
-                                class="form-control" name="rut" id="txtRut">
+                            <input type="text" value='' class="form-control" name="rut" id="txtRut">
 
                             </input>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="txtNombre">Nombre:</label>
-                            <input type="text" value='<?php echo $_GET['nombreParametros'];?>' class="form-control"
-                                name="nombre" id="txtNombre">
+                            <input type="text" value='' class="form-control" name="nombre" id="txtNombre">
 
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="txtApellido1">Apellido materno:</label>
-                            <input type="text" value='<?php echo $_GET['apellido1Parametros'];?>' class="form-control"
-                                name="apellido1" id="txtApellido1">
+                            <input type="text" value='' class="form-control" name="apellido1" id="txtApellido1">
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="txtApellido2">Apellido paterno</label>
-                            <input type="text" value='<?php echo $_GET['apellido2Parametros'];?>' class="form-control"
-                                name="apellido2" id="txtApellido2">
+                            <input type="text" value='' class="form-control" name="apellido2" id="txtApellido2">
                         </div>
 
                         <div class="form-group mb-3">
@@ -85,25 +81,9 @@
                             echo " <select class='form-control' name='id_region'> ";
                             foreach($listaRegiones as $region)
                             {
-                                if($_GET['regionParametros'] != null)
-                                {                                   
-
-                                    if($_GET['regionParametros']->getId() == $region->getId())
-                                    {
-                                        echo "<option selected value='".$region->getId() ."'>". $region->getNombre()."</option>";
-                                    }
-                                    else
-                                    {
-                                        echo "<option value='".$region->getId() ."'>". $region->getNombre()."</option>";
-                                    }
-                                }
-                                else
-                                {
-                                    echo "<option value='".$region->getId() ."'>". $region->getNombre()."</option>";
-                                }
+                                echo "<option value='".$region->getId() ."'>". $region->getNombre()."</option>";
                             }
                             echo " </select> ";
-
                         ?>
 
                         </div>
@@ -117,23 +97,8 @@
 
                             foreach($listaCursos as $curso)
                             {
-                                if($_GET['ciudadParametros'] != null)
-                                {
-                                    if($_GET['ciudadParametros']->getId() == $curso->getId())
-                                    {
-                                        echo "<option selected value='".$curso->getId() ."'>". $curso->getNombre()."</option>";
-                                    }
-                                    else
-                                    {
-                                        echo "<option value='".$curso->getId() ."'>". $curso->getNombre()."</option>";
-                                    }
-                                }
-                                else
-                                {
-                                    echo "<option value='".$curso->getId() ."'>". $curso->getNombre()."</option>";
-                                }
+                                echo "<option value='".$curso->getId() ."'>". $curso->getNombre()."</option>";
                             }
-
                         ?>
                             </select>
                         </div>
@@ -147,21 +112,7 @@
 
                             foreach($listaCursos as $curso)
                             {
-                                if($_GET['comunaParametros'] != null)
-                                {
-                                    if($_GET['comunaParametros']->getId() == $curso->getId())
-                                    {
-                                        echo "<option selected value='".$curso->getId() ."'>". $curso->getNombre()."</option>";
-                                    }
-                                    else
-                                    {
-                                        echo "<option value='".$curso->getId() ."'>". $curso->getNombre()."</option>";
-                                    }
-                                }
-                                else
-                                {
-                                    echo "<option value='".$curso->getId() ."'>". $curso->getNombre()."</option>";
-                                }
+                                echo "<option value='".$curso->getId() ."'>". $curso->getNombre()."</option>";
                             }
 
                         ?>
@@ -169,35 +120,32 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="txtDireccion">Direccion</label>
-                            <input type="text" value='<?php echo $_GET['direccionParametros'];?>' class="form-control"
-                                name="direccion" id="txtDireccion">
+                            <input type="text" value='' class="form-control" name="direccion" id="txtDireccion">
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="txtEmail">Email</label>
-                            <input type="text" value='<?php echo $_GET['emailParametros'];?>' class="form-control"
-                                name="email" id="txtEmail">
+                            <input type="email" value='' class="form-control" name="email" id="txtEmail">
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="txtTelefono">Telefono</label>
-                            <input type="text" value='<?php echo $_GET['telefonoParametros'];?>' class="form-control"
-                                name="telefono" id="txtTelefono">
+                            <input type="text" value='' class="form-control" name="telefono" id="txtTelefono">
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="txtGiro">Giro</label>
-                            <input type="text" value='<?php echo $_GET['giroParametros'];?>' class="form-control"
-                                name="giro" id="txtGiro">
+                            <input type="text" value='' class="form-control" name="giro" id="txtGiro">
                         </div>
-                        <button id="btnAccion" type="submit" name="eliminar" class="btn btn-primary">Eliminar</button>
+                        <button id="btnAccion" type="submit" name="registrar" class="btn btn-primary">Registrar</button>
                         <a href="administrar.php"><button type="button" class="btn btn-secondary">Cancelar</button></a>
                 </div>
 
                 </form>
 
             </div>
-
+        </div>
+        </div>
     </body>
 
 </html>

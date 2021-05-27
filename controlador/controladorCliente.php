@@ -5,14 +5,20 @@
         require_once '../entidades/cliente.php';
         require_once '../persistencia/daoCliente.php';
 
+        $rut= $_POST['rut'];
         $nombre = $_POST['nombre'];
-        $codigo = $_POST['codigo'];
-        $descripcion = $_POST['descripcion'];
-        $unidadMedida = $_POST['unidadMedida'];
-        $precioUnitario = $_POST['precioUnitario'];
+        $apellido1 = $_POST['apellido1'];
+        $apellido2 = $_POST['apellido2'];
+        $id_ciudad = $_POST['id_comuna'];
+        $id_region = $_POST['id_ciudad'];
+        $id_comuna =  $_POST['id_region'];
+        $direccion = $_POST['direccion'];
+        $email = $_POST['email'];
+        $telefono = $_POST['telefono'];
+        $giro = $_POST['giro'];
 
-        $nuevoProducto = new Producto($nombre, $codigo, $descripcion,  $unidadMedida, $precioUnitario);
-        header("Location: ../presentacion/producto/registrar.php?msj=" . registrarProducto($nuevoProducto) . " [Producto: " . $nuevoProducto->getNombre() . "]");
+        $nuevoCliente = new Cliente($rut, $nombre, $apellido1,  $apellido2, $id_ciudad, $id_comuna, $id_region,$direccion, $email, $telefono, $giro);
+        header("Location: ../presentacion/clientes/registrar.php?msj=" . registrarCliente($nuevoCliente) . " [cliente: " . $nuevoCliente->getNombre() . "]");
         
         die();    
     }

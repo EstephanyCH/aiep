@@ -8,16 +8,19 @@
             $conn = new PDO("mysql:host=$host;dbname=$nombreBaseDatos", $usuario,$password);
 
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $query = $conn->prepare("INSERT INTO cliente (rut, nombre, apellido1, apellido2, id_comuna,direccion,
+            
+            $query = $conn->prepare("INSERT INTO cliente (rut, nombre, apellido1, apellido2, id_comuna,
+            direccion,
             email,
             telefono,
-            giro)
-            VALUES (?,?,?,?,?,?,?,?,?)");
-     
-           /*  $resultado = $query->execute([$nuevoProducto->getCodigo(), $nuevoProducto->getNombre(), $nuevoProducto->getDescripcion(),
-            $nuevoCliente->getUnidadMedida(), $nuevoProducto->getPrecioUnitario()]);
+            giro,
+            estado)
+            VALUES (?,?,?,?,?,?,?,?,?,?)");
+
+            $resultado = $query->execute([$nuevoCliente->getRut(), $nuevoCliente->getNombre(), $nuevoCliente->getApellido1(),
+            $nuevoCliente->getApellido2(), $nuevoCliente->getComuna(), $nuevoCliente->getDireccion(), $nuevoCliente->getEmail(), $nuevoCliente->getTelefono(), $nuevoCliente->getGiro(), 1 ]);
  
+            
             if($resultado)
             {
                 return 'ok';
@@ -26,7 +29,7 @@
             {
                 return 'err';
             }
- */
+
         }catch(PDOException $pe){
 
             return "err : " . $pe->getMessage();
