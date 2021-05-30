@@ -14,7 +14,10 @@
 
 <body>
     <?php include("../header/header.php");?>
-
+    <?php 
+            require_once '../../controlador/controladorFactura.php';
+            require_once '../../controlador/controladorProducto.php';
+    ?>
 
     <div class="container pt-5">
 
@@ -35,40 +38,41 @@
         </div>
         <div class="row">
             <div class="col-md-8">
-                <h4 class="mb-5"><b><span class='glyphicon glyphicon-plus'></span>&nbsp;Ingresar producto</b></h4>
-                <form action="/proyectoFacturas/controlador/controladorProducto.php" method="POST">
+                <h4 class="mb-5"><b><span class='glyphicon glyphicon-plus'></span>&nbsp;Ingresar productoa la factura <?php echo $_GET['numeroDocumentoParametros']?> </b></h4>
+                <form action="/proyectoFacturas/controlador/controladorFactura.php" method="POST">
 
-                    <div class="form-group  mb-3">
-                        <label for="txtRut">Código:</label>
-                        <input type="text" class="form-control" name="codigo" id="txtCodigo"
-                            placeholder="Ingresa el código del producto">
+                <input type="text" name="numeroDocumentoParametros" value="<?php echo $_GET['numeroDocumentoParametros']?>" hidden>
+                <div class="form-group mb-3">
+                        <label >Código:</label>
+                            <?php
+
+                            $listaProductos = getProductos();
+                            echo '<select class="form-control" name="idProducto">';
+                            if(count($listaProductos) > 0){
+                                foreach($listaProductos as $producto)
+                                {
+                                    echo "<option value='".$producto->getCodigo() ."'>". $producto->getNombre()."</option>";
+                                }
+                            }
+                            ?>
+                        </select>
+
                     </div>
 
                     <div class="form-group  mb-3">
-                        <label for="txtRut">Nombre:</label>
-                        <input type="text" class="form-control" name="nombre" id="txtNombre"
-                            placeholder="Ingresa el nombre del producto">
+                        <label for="txtNombre2">Precio unitario:</label>
+                        <input type="number" class="form-control" name="precio" value='<?php echo $_GET['ivaParametros'];?>'
+                            placeholder="Ingresa la cantidad de productos">
                     </div>
 
                     <div class="form-group  mb-3">
-                        <label for="txtNombre1">Descripcion:</label>
-                        <input type="text" class="form-control" name="descripcion" id="txtDescripcion"
-                            placeholder="Ingresa la descripción del producto">
+                        <label for="txtNombre2">Cantidad:</label>
+                        <input type="number" class="form-control" name="cantidad" value='<?php echo $_GET['ivaParametros'];?>'
+                            placeholder="Ingresa la cantidad de productos">
                     </div>
 
-                    <div class="form-group  mb-3">
-                        <label for="txtNombre2">Unidad de medida:</label>
-                        <input type="text" class="form-control" name="unidadMedida" id="txtUnidadMedida"
-                            placeholder="Ingresa la unidad de medida del producto">
-                    </div>
-
-                    <div class="form-group  mb-3">
-                        <label for="txtApellido1">Precio unitario:</label>
-                        <input type="text" class="form-control" name="precioUnitario" id="txtPrecio"
-                            placeholder="Ingresa el precio unitario del producto">
-                    </div>
                     <div class="mt-3">
-                        <button id="btnAccion" type="submit" name="registrar" class="btn btn-primary">Guardar</button>
+                        <button id="btnAccion" type="submit" name="registrarProducto" class="btn btn-primary">Guardar</button>
                         <a href="administrar.php"><button type="button" class="btn btn-secondary">Cancelar</button></a>
                     </div>
 

@@ -19,16 +19,5 @@
         }else{
             echo 'el usuario no existe';
         }
-
- /*        if(strtoupper($_GET['nombreUsuario']) == "CARLOS" && $_GET['password'] == "1234")
-        { 
-            $_SESSION['nomUsuario'] = $_GET['nombreUsuario'];
-            $_SESSION['passUsuario'] = $_GET['password'];
-            echo "Identificado";
-            header("Location: ../presentacion/producto/administrar.php");
-            die(); 
-        }  */
-
-        
     }
 ?>

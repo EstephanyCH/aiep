@@ -1,11 +1,11 @@
-<!-- <?php        
+<?php  
+    session_start();
     if(isset($_SESSION['nombre']))
     {
     } else {
         header("Location: ../Login.php");
-    }
-    
-?> -->
+    } 
+?>
 </div>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
@@ -17,9 +17,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <?php        
-                        session_start();
-                ?>
                 <?php if($_SESSION['tipoUsuario'] == 1) {  ?>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="../producto/administrar.php">Productos</a>

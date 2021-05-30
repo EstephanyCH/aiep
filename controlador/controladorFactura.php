@@ -1,23 +1,31 @@
 <?php
 
+    if(isset($_POST['filtrar']))
+    { 
+        session_start();
+
+        $_SESSION['fechaInicio'] = $_POST['trip-start'];
+        $_SESSION['fechaFin'] = $_POST['trip-end'];
+        header("Location: ../presentacion/libro_ventas/administrar.php");
+        die();
+        
+    }
+
     if(isset($_POST['actualizar']))
     { 
-        require_once '../entidades/EncabezadoDocumento.php';
+        require_once '../entidades/encabezado_documento.php';
         require_once '../persistencia/daoFactura.php';
 
         $rut_empresa = $_POST['rutEmpresa'];
-        $fecha_emision = $_POST['fechaEmision'];
         $observaciones = $_POST['observaciones'];
-        $id_tipo = $_POST['idTipo'];
+        $id_tipo = $_POST['observa'];
         $id_estado = $_POST['idEstado'];
         $iva = $_POST['iva'];
-        $neto = $_POST['neto'];
-        $total = $_POST['total'];
-
-        $nuevo = new EncabezadoDocumento($rut_empresa, $fecha_emision, $observaciones, $id_tipo, $id_estado, $iva, $neto, $total);
-
-      /*   header("Location: ../presentacion/factura/actualizar.php?msj=" . actualizarFactura($nuevo) . " [Empresa: " . $nuevo->getRut() . "]");
-        die(); */
+        $cliente = $_POST['cliente'];
+        $nuevo = new EncabezadoDocumento($rut_empresa, $observaciones, $id_tipo, $id_estado, $iva, $cliente);
+        $nuevo->id_documento = $_POST['numeroDocumento'];
+         header("Location: ../presentacion/facturas/actualizar.php?msj=" . actualizarFactura($nuevo) . " [Empresa: " . $nuevo->getIdDocumento() . "]");
+        die();
     }
 
     if(isset($_POST['registrar']))
@@ -36,28 +44,59 @@
         die();
     }
 
-    function evaluarParametrosPorId(){
+    if(isset($_POST['registrarProducto']))
+    { 
+        require_once '../persistencia/daoFactura.php';
+        require_once '../entidades/detalle_documento.php';
 
-            require_once '../../entidades/empresa.php';
-            require_once '../../persistencia/daoEmpresa.php';
+        $idFactura = $_POST['numeroDocumentoParametros'];
+        $producto = $_POST['idProducto'];
+        $cantidad = $_POST['cantidad'];
+        $precio = $_POST['precio'];
+       
+        $nuevo = new DetalleDocumento($idFactura, $precio, $cantidad);
+        $nuevo->productoFactura = $producto;
 
-            $rutEmpresa = '24327088';
-            $nuevoCliente = getEmpresaPorRut($rutEmpresa);
+        header("Location: ../presentacion/productosFactura/administrar.php?msj=" . registrarProductosPorFactura($nuevo) . " [Empresa: " . $nuevo->getIdDetalle() . "]");
+        die();
+    }
 
-            $_GET['RutParametros'] = $nuevoCliente->getRut();
-            $_GET['nombreParametros'] = $nuevoCliente->getNombre();
-            $_GET['razonSocialParametros'] = $nuevoCliente->getRazonSocial();
-            $_GET['giroParametros'] = $nuevoCliente->getGiro();
+    function consultarFactura(){
+
+        if(isset($_GET['numeroDocumentoParametros']) && $_GET['numeroDocumentoParametros'] !== "")
+        {
+            require_once '../../entidades/encabezado_documento.php';
+            require_once '../../persistencia/daoFactura.php';
+
+            $nuevaFactura = getFacturaPorId($_GET['numeroDocumentoParametros']);
+            $_GET['RutEmpresaParametros'] = $nuevaFactura->getRutEmpresa();
+            $_GET['observacionesParametros'] = $nuevaFactura->getObservaciones();
+            $_GET['tipoParametros'] = $nuevaFactura->getIdTipo();
+            $_GET['estadoParametros'] = $nuevaFactura->getIdEstado();
+            $_GET['ivaParametros'] = $nuevaFactura->getIva();
+            $_GET['clienteParametros'] = $nuevaFactura->getCliente();
+        }
     }
     
-    function getFacturas(){
+    function getFacturas($datestart, $dateEnd ){
 
         require_once '../../persistencia/daoFactura.php';
         require_once '../../entidades/encabezado_documento.php';
-
-        $lista = consultar();
+        $lista = consultarFaturas($datestart, $dateEnd);
         
         return $lista;
+    }
+
+    function getProductosFactura(){
+        if(isset($_GET['numeroDocumentoParametros']) && $_GET['numeroDocumentoParametros'] !== "")
+        {
+            require_once '../../persistencia/daoFactura.php';
+
+            $lista = consultarProductosFactura($_GET['numeroDocumentoParametros']);
+            
+            return $lista;
+        }
+       
     }
 
 ?>

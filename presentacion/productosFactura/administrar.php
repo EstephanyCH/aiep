@@ -34,11 +34,11 @@
     <div class="container content pt-5">
         <div class="row">
             <div class="col-md-6">
-                <h4><b><i class="glyphicon glyphicon-education">&nbsp;</i>Administrar Productos</b></h4>
+                <h4><b><i class="glyphicon glyphicon-education">&nbsp;</i>Administrar Productos para factura <?php echo $_GET['numeroDocumentoParametros']?></b></h4>
             </div>
 
             <div class="col-md-6 d-flex justify-content-end">
-                <a href='registrar.php'><button class="btn btn-warning" type="button">Agregar producto <i
+                <a href="registrar.php?numeroDocumentoParametros=<?php echo $_GET['numeroDocumentoParametros']?>"><button class="btn btn-warning" type="button">Agregar producto <i
                             class="bi bi-plus-circle"></i> </button></a>
             </div>
         </div>
@@ -55,29 +55,24 @@
                                 <th>Descripción</th>
                                 <th>Unidad de medida</th>
                                 <th>Precio unitario</th>
-                                <th class='text-center'>Actualizar</th>
-                                <th class='text-center'>Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
 
-                            include '../../controlador/controladorProducto.php';
+                            include '../../controlador/controladorFactura.php';
 
-                            $listaProductos = getProductos();
+                            $listaProductos = getProductosFactura();
 
                             if(count($listaProductos) > 0){
-                                foreach($listaProductos as $producto)
+                                foreach($listaProductos as $detalle)
                                 {
                                     echo "<tr>";
-                                    echo "<td><p class='label label-primary'>" . $producto->getCodigo() . "</p></td>";
-                                    echo "<td>" . $producto->getNombre() . "</td>";
-                                    echo "<td>" . $producto->getDescripcion() . "</td>";
-                                    echo "<td>" . $producto->getUnidadMedida() . "</td>";
-                                    echo "<td>" . $producto->getPrecioUnitario() . "</td>";
-                                    echo "<td class='text-center'><a href='actualizar.php?codigoParametros=" . $producto->getCodigo() . "'><i class='bi bi-pencil-square'></i></i>
-                                    </a></td>";
-                                    echo "<td class='text-center'><a href='eliminar.php?codigoParametros=" . $producto->getCodigo() . "'><i class='bi bi-trash'></i></a></td>";
+                                    echo "<td><p class='label label-primary'>" . $detalle->getProducto()->getCodigo() . "</p></td>";
+                                    echo "<td>" . $detalle->getProducto()->getNombre() . "</td>";
+                                    echo "<td>" . $detalle->getProducto()->getDescripcion() . "</td>";
+                                    echo "<td>" . $detalle->getProducto()->getUnidadMedida() . "</td>";
+                                    echo "<td>" . $detalle->getPrecio() . "</td>";
                                     echo "</tr>";
 
                                 }

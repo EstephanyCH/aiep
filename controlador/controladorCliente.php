@@ -70,6 +70,7 @@
 
 
     function getClientes(){
+        echo 'l';
         require_once '../../entidades/cliente.php';
         require_once '../../persistencia/daoCliente.php';
         $lista = consultarClientes();

@@ -119,7 +119,7 @@
 
     function consultarClientes(){
 
-        require_once 'parametrosBD.php';
+        require 'parametrosBD.php';
         require_once 'daoComuna.php';
         require_once 'daoCiudad.php';
         require_once 'daoRegion.php';
@@ -163,9 +163,10 @@
     
     function getClientePorId($rut){
         require 'parametrosBD.php';
-        require 'daoComuna.php';
-        require 'daoCiudad.php';                
-        require 'daoRegion.php';                                
+        require_once 'daoComuna.php';
+        require_once 'daoCiudad.php';                
+        require_once 'daoRegion.php';   
+        require_once '../../entidades/cliente.php';   
 
         try
         {

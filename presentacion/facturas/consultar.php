@@ -14,7 +14,10 @@
 
 <body>
     <?php include("../header/header.php");?>
-
+    <?php 
+            require_once '../../controlador/controladorImprimirFactura.php';
+            require_once '../../controlador/controladorFactura.php';
+    ?>
 
     <div class="container pt-5">
 
@@ -35,7 +38,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h3>Consultar factura <span class="badge bg-secondary">87878</span></h3>
+                <h3>Consultar factura <span class="badge bg-secondary"><?php echo $_GET['detalleFactura']->getIdDocumento();?></span></h3>
 
                 <div class="row mt-5">
                     <div class="col-md-6">
@@ -45,18 +48,18 @@
 
                                 <h4 class="">Empresa</h4>
                                 <div class="mt-3 mb-3">
-                                    <p><b>Rut empresa</b></p>
-                                    <p>67789</p>
+                                    <p><b>R.U.T</b></p>
+                                    <p><?php echo $_GET['empresa']->getRut();?></p>
                                 </div>
 
                                 <div class="mb-3">
                                     <p><b>Razon social empresa:</b></p>
-                                    <p>girio</p>
+                                    <p><?php echo $_GET['empresa']->getRazonSocial();?></p>
                                 </div>
 
                                 <div class=" mb-3">
                                     <p><b>Giro empresa:</b></p>
-                                    <p>kkk</p>
+                                    <p><?php echo $_GET['empresa']->getGiro();?></p>
                                 </div>
                             </div>
                         </div>
@@ -66,21 +69,26 @@
                         <div class="card bg-light">
                             <div class="card-body">
 
-                                <h4>Factura</h4>
+                                <h4>Detalle de Factura</h4>
 
                                 <div class="mb-3">
                                     <p><b>Número factura:</b></p>
-                                    <p>yiuiuiuiu</p>
+                                    <p><?php echo $_GET['detalleFactura']->getIdDocumento();?></p>
                                 </div>
 
                                 <div class="mb-3">
                                     <p><b>Observaciones:</b></p>
-                                    <p>yiuiuiuiu</p>
+                                    <p><?php echo $_GET['detalleFactura']->getObservaciones();?></p>
                                 </div>
 
                                 <div class="mb-3">
                                     <p><b>Tipo de documento:</b></p>
-                                    <p>yiuiuiuiu</p>
+                                    <p><?php echo $_GET['detalleFactura']->getIdTipo();?></p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <p><b>Fecha de emisión:</b></p>
+                                    <p><?php echo $_GET['detalleFactura']->getFechaEmision();?></p>
                                 </div>
                             </div>
                         </div>
@@ -89,41 +97,41 @@
                     <div class="col-md-6 mt-3">
                         <div class="card bg-light">
                             <div class="card-body">
-                                <h4>Cliente</h4>
+                                <h4>Datos del cliente</h4>
 
                                 <div class="mb-3">
-                                    <p><b>Nombre:</b></p>
-                                    <p>este</p>
+                                    <p><b>Señores:</b></p>
+                                    <p><?php echo $_GET['cliente']->getNombre();?></p>
                                 </div>
 
                                 <div class="mb-3">
-                                    <p><b>Rut:</b></p>
-                                    <p>36778</p>
+                                    <p><b>R.U.T:</b></p>
+                                    <p><?php echo $_GET['cliente']->getRut();?></p>
                                 </div>
 
                                 <div class="mb-3">
                                     <p><b>Giro:</b></p>
-                                    <p>36778</p>
+                                    <p><?php echo $_GET['cliente']->getGiro();?></p>
                                 </div>
 
                                 <div class="mb-3">
                                     <p><b>Direccion:</b></p>
-                                    <p>yiuiuiuiu</p>
+                                    <p><?php echo $_GET['cliente']->getDireccion();?></p>
                                 </div>
 
                                 <div class="mb-3">
                                     <p><b>Ciudad:</b></p>
-                                    <p>yiuiuiuiu</p>
+                                    <p><?php echo $_GET['cliente']->getCiudad()->getNombre();?></p>
                                 </div>
 
                                 <div class="mb-3">
                                     <p><b>Telefono:</b></p>
-                                    <p>yiuiuiuiu</p>
+                                    <p><?php echo $_GET['cliente']->getTelefono();?></p>
                                 </div>
 
                                 <div class="mb-3">
                                     <p><b>Email:</b></p>
-                                    <p>yiuiuiuiu</p>
+                                    <p><?php echo $_GET['cliente']->getEmail();?></p>
                                 </div>
                             </div>
                         </div>
@@ -134,40 +142,21 @@
                             <div class="card-body">
                                 <h4>Productos</h4>
 
-                                <div class="mb-3">
-                                    <p><b>Nombre:</b></p>
-                                    <p>este</p>
-                                </div>
+                                <?php 
 
-                                <div class="mb-3">
-                                    <p><b>Rut:</b></p>
-                                    <p>36778</p>
-                                </div>
+                                $list = getProductosFactura();
+                                
+                                foreach($list as $detalle)
+                                {
+                                    echo "<p>Nombre: " .  $detalle->getProducto()->getNombre() . "</p>";
+                                    echo "<p>Descripción: " .  $detalle->getProducto()->getDescripcion() . "</p>";
+                                    echo "<p>Codigo: " .  $detalle->getProducto()->getCodigo() . "</p>";
+                                    echo "<p>Unidad de medida: " .  $detalle->getProducto()->getUnidadMedida() . "</p>";
+                                    echo "<p>Precio: " .  $detalle->getPrecio(). "</p>";
+                                    echo "<p>Cantidad: " .  $detalle->getCantidad() . "</p>";
+                                }
+                                ?>
 
-                                <div class="mb-3">
-                                    <p><b>Giro:</b></p>
-                                    <p>36778</p>
-                                </div>
-
-                                <div class="mb-3">
-                                    <p><b>Direccion:</b></p>
-                                    <p>yiuiuiuiu</p>
-                                </div>
-
-                                <div class="mb-3">
-                                    <p><b>Ciudad:</b></p>
-                                    <p>yiuiuiuiu</p>
-                                </div>
-
-                                <div class="mb-3">
-                                    <p><b>Telefono:</b></p>
-                                    <p>yiuiuiuiu</p>
-                                </div>
-
-                                <div class="mb-3">
-                                    <p><b>Email:</b></p>
-                                    <p>yiuiuiuiu</p>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -179,23 +168,20 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <p><b>Neto:</b></p>
-                            <p>este</p>
+                            <p><?php echo $_GET['detalleFactura']->getNeto();?></p>
                         </div>
 
                         <div class="mb-3">
                             <p><b>Iva:</b></p>
-                            <p>este</p>
+                            <p><?php echo $_GET['detalleFactura']->getIva();?></p>
                         </div>
 
                         <div class="mb-3">
                             <p><b>Total:</b></p>
-                            <p>este</p>
+                            <p><?php echo $_GET['detalleFactura']->getTotal();?></p>
                         </div>
 
-                        <div class="mb-3">
-                            <p><b>Observaciones:</b></p>
-                            <textarea name="" id="" cols="30" rows="10"></textarea>
-                        </div>
+                      
                     </div>
                 </div>
 

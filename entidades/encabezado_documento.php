@@ -7,10 +7,11 @@
         private $observaciones;
         private $id_tipo;
         private $id_estado;
-        private $iva;
+        public $iva;
         public $neto;
         public $total;
         private $cliente;
+        public $detalle;
 
         function __construct($rut_empresa, $observaciones, $id_tipo, $id_estado, $iva, $cliente )
         {
@@ -60,6 +61,10 @@
 
         function getCliente(){
             return $this->cliente;
+        }
+
+        function getDetalle(){
+            return $this->detalle;
         }
     }
 ?>

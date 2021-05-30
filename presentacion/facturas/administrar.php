@@ -62,6 +62,7 @@
                                 <th>Total</th>
                                 <th>Editar</th>
                                 <th>Detalle</th>
+                                <th>Consultar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,7 +70,7 @@
 
                             include '../../controlador/controladorFactura.php';
 
-                            $listaFacturas = getFacturas();
+                            $listaFacturas = getFacturas(null, null);
 
                             if(count($listaFacturas) > 0){
                                 foreach($listaFacturas as $factura)
@@ -80,15 +81,17 @@
                                     echo "<td>" . $factura->getFechaEmision() . "</td>";
                                     echo "<td>" . $factura->getObservaciones() . "</td>";
                                     echo "<td>" . $factura->getIdTipo() . "</td>";
-                                    echo "<td>" . $factura->getIdEstado() . "</td>";
+                                    echo "<td>" . $factura->getIdEstado()->getEstado() . "</td>";
                                     echo "<td>" . $factura->getCliente() . "</td>";
                                     echo "<td>" . $factura->getIva() . "</td>";
                                     echo "<td>" . $factura->getNeto() . "</td>";
                                     echo "<td>" . $factura->getTotal() . "</td>";
-                                    echo "<td class='text-center'><a href='actualizar.php?idParametros=" . $factura->getIdDocumento() . "'><i class='bi bi-pencil-square'></i></i>
+                                    echo "<td class='text-center'><a href='actualizar.php?numeroDocumentoParametros=" . $factura->getIdDocumento() . "'><i class='bi bi-pencil-square'></i></i>
                                     </a></td>";
-                                    echo "<td class='text-center'><a href='../productosFactura/administrar.php?idParametros=" . $factura->getIdDocumento() . "'><i
+                                    echo "<td class='text-center'><a href='../productosFactura/administrar.php?numeroDocumentoParametros=" . $factura->getIdDocumento() . "'><i
                                     class='bi bi-plus-circle'></i>
+                                    </a></td>";
+                                    echo "<td class='text-center'><a href='../facturas/consultar.php?numeroDocumentoParametros=" . $factura->getIdDocumento() . "'><i class='bi bi-file-earmark-ruled'></i>
                                     </a></td>";
                                     echo "</tr>";
 

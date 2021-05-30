@@ -103,7 +103,6 @@
     function consultar(){
 
         require_once 'parametrosBD.php';
-        require_once 'daoProducto.php';
         
         try
         {
@@ -141,6 +140,7 @@
     function getProductoPorId($codigo){
 
         require 'parametrosBD.php';        
+        require_once '../../entidades/producto.php';        
 
         try
         {
